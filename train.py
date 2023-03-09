@@ -58,6 +58,9 @@ def define():
     p.add_argument('--model_save', type = str, default = "./models/", help="Data Folder Path")
     p.add_argument('--sub_path', type = str, default = "./submission/", help="Data Folder Path")
     
+    p.add_argument('--model', type = str, default = "monologg/kobigbird-bert-base", help="HuggingFace Pretrained Model")
+    p.add_argument('--model_type', type = int, default = 1, help="ModelV")
+    
     p.add_argument('--n_folds', type = int, default = 5, help="Folds")
     p.add_argument('--n_epochs', type = int, default = 5, help="Epochs")
     
@@ -150,29 +153,45 @@ def main(config):
     # for fold in trange(0, config['n_folds']):
         print(f"{y_}==== Fold: {fold} ====={sr_}")
 
-        # DataLoaders ########## 공사 중 ##########
-        # collate_fn = DataCollatorWithPadding(tokenizer=config['tokenizer'] )
+        # DataLoaders 
         train_loader, valid_loader = prepare_loader(train, fold, tokenizer, config.max_length, config.train_bs, DataCollatorWithPadding(tokenizer=tokenizer))
 
-        # Define Model because of KFold
-        model = Model(config.model).to(device)
+        ## Define Model because of KFold
+        if config.model_type == 1:
+            model = ModelV1(config['model']).to(device)
+            print("ModelV1")
+
+        elif config.model_type == 2:
+            model = ModelV2(config['model']).to(device)
+            print("ModelV2")
+
+        elif config.model_type == 3:
+            model = ModelV3(config['model']).to(device)
+            print("ModelV3")
+
+        else:
+            model = ModelV4(config['model']).to(device)
+            print("ModelV4")
 
         # Loss Function
-        loss_fn = nn.NLLLoss().to(device)
+        loss_fn = {'type': nn.NLLLoss().to(config['device']),
+                    'pn' : nn.NLLLoss().to(config['device']),
+                    'time': nn.NLLLoss().to(config['device']),
+                    'sure': nn.BCELoss().to(config['device'])}
         print("Loss Function Defined")
 
         # Define Opimizer and Scheduler
         optimizer = AdamW(model.parameters(), lr = config.learning_rate, weight_decay = config.weight_decay)
         print("Optimizer Defined")
-        
+
         # scheduler = fetch_scheduler(optimizer)
         scheduler = CosineWarmupScheduler(optimizer=optimizer, warmup=100, max_iters=2000)
         print("Scheduler Defined")
         
-        print("자세히 알고 싶으면 코드를 봅시다.")
+         print("자세히 알고 싶으면 코드를 봅시다.")
         ## Start Training
-        model, best_score = run_train(model, config.model_save, train_loader, valid_loader, loss_fn, optimizer, device, n_classes, fold, scheduler, config.grad_clipping, config.n_epochs)
-    
+        model, best_score = run_train(model, config.model_type, config.model_save, train_loader, valid_loader, loss_fn, optimizer, device, n_classes, fold, scheduler, config.grad_clipping, config.n_epochs)
+
         ## Best F1_Score per Fold 줍줍
         if type(best_score) == torch.Tensor:
             best_scores.append( best_score.detach().cpu().item() )
