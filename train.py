@@ -67,7 +67,7 @@ def define():
     p.add_argument('--seed', type = int, default = 2022, help="Seed")
     p.add_argument('--train_bs', type = int, default = 16, help="Batch Size")
     
-    p.add_argument('--max_length', type = int, default = 256, help="Max Length")
+    p.add_argument('--max_length', type = int, default = 128, help="Max Length")
     
     p.add_argument('--ratio', type = float, default = 0.7, help="Ratio of Train, Valid")
     
