@@ -72,7 +72,7 @@ def define():
     p.add_argument('--ratio', type = float, default = 0.7, help="Ratio of Train, Valid")
     
     p.add_argument('--T_max', type = int, default = 500, help="T_max")
-    p.add_argument('--learning_rate', type = float, default = 1e-5, help="lr")
+    p.add_argument('--learning_rate', type = float, default = 5e-5, help="lr")
     p.add_argument('--min_lr', type = float, default = 1e-6, help="Min LR")
     p.add_argument('--weight_decay', type = float, default = 1e-6, help="Weight Decay")
 
@@ -118,10 +118,14 @@ def main(config):
     target4_inverse = {True: '확실', False: '불확실'}
     n_classes['sure'] = 2
     
+    # Print Target Columns
+    target_cols = ['type', 'pn', 'time', 'sure']
+    print("Target Columns: ", target_cols)
+    
     ### K Fold: MultilabelStratifiedKFold
     skf = MultilabelStratifiedKFold(n_splits = config.n_folds, shuffle = True, random_state = config.seed)
 
-    for fold, (_, val_index) in enumerate(skf.split(X=train, y=train[config.target_cols])):
+    for fold, (_, val_index) in enumerate(skf.split(X=train, y=train[target_cols])):
         train.loc[val_index, 'kfold'] = int(fold)
 
     train['kfold'] = train['kfold'].astype('int')
@@ -210,3 +214,6 @@ def main(config):
 if __name__ == '__main__':
     config = define()
     main(config)
+
+    
+    
