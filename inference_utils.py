@@ -1,3 +1,7 @@
+import os
+import gc
+import copy
+import time
 
 import matplotlib.pyplot as plt
 
@@ -14,10 +18,10 @@ from torch.utils.data import Dataset, DataLoader
 
 ######## test_loader ##############
 def make_testloader(test, 
-                    tokenizer = tokenizer, 
-                    max_length = config['max_length'],
-                    bs = config['train_batch_size'], 
-                    collate_fn = DataCollatorWithPadding(tokenizer)):
+                    tokenizer, 
+                    max_length,
+                    bs, 
+                    collate_fn):
 
     test_ds = MyDataset(test, 
                         tokenizer = tokenizer,
@@ -80,19 +84,19 @@ def test_func(model, dataloader, device):
   
 ################## Trained Model Save-Path List ########################  
 ## Better F1 Score Model paths 
-def trained_model_paths(n_folds = config['n_folds'], model_save = config['model_save'], model_type = config['model_type'], ):
+def trained_model_paths(n_folds, model_save, model_type):
     print("n_folds: ",n_folds )
 
     model_paths_f1 = []
     
     # Define Model because of KFold
-    if config['model_type'] == 1:
+    if model_type == 1:
         model_type_s = "ModelV1"
 
-    elif config['model_type'] == 2:
+    elif model_type == 2:
         model_type_s = "ModelV2"
 
-    elif config['model_type'] == 3:
+    elif model_type == 3:
         model_type_s = "ModelV3"
 
     else:
@@ -108,7 +112,9 @@ def trained_model_paths(n_folds = config['n_folds'], model_save = config['model_
   
 #################### inference model define #################################
 # Define Model because of KFold
-def inference_model_define(model_type = config['model_type'], model_name =config['model'], device = config['device']):
+def inference_model_define(model_type, 
+                           model_name, 
+                           device):
     
     if model_type == 1:
         model = ModelV1(model_name).to(device)
@@ -181,7 +187,12 @@ def inference(model_paths, dataloader, device):
   
   
 ################# COLUMN WISE Predict #####################  
-def column_wise_predict(f1_preds= f1_preds, ss = ss, column = 'type', inverse_encode = inverse_encode, threshold = .5):
+def column_wise_predict(f1_preds, 
+                        ss, 
+                        column, 
+                        inverse_encode, 
+                        threshold = .5):
+  
     # ss = submission file
     print("column_name = 'time: ", column)
  
