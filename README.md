@@ -46,9 +46,9 @@ $ pip install -qqq iterative-stratification
 $ pip install -qqq --no-cache-dir transformers sentencepiece
 ```
 
---------------------
-## 아직 공사 중
+
 ## How to train or inference in CLI? [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1EPaUyBIP4VER23AKPoLBPjW-Gdn8Bv6b?usp=share_link)
+
 
 ### Train 
 ```python
@@ -82,11 +82,14 @@ $ python train.py --base_path './data/' \
   - 디바이스의 GPU를 믿고 있었는데, 본의 아니게 배신 당하게 된다면, 자동적으로  `cpu` 로 설정됨 
 - `learning_rate`, `weight_decay`, `min_lr`, `T_max` 등은 생략 
 
-- [`train.py`](https://github.com/renslightsaber/Dacon_Sentence_Type_Classification/blob/main/train.py) 참고!
+- [`train.py`](https://github.com/renslightsaber/Dacon_Sentence_Type_Classification/blob/main/train.py) 참고!   
+
 
 #### 주의
  - CLI 환경에서 train 시킬 때, `tqdm`의 Progress Bar가 엄청 많이 생성된다. 아직 원인과 해결을 못 찾은 상태이다.
  - Colab과 Jupyter Notebook에서는 정상적으로 Progress Bar가 나타난다.
+
+
 
 ### Inference 
 ```python
@@ -114,6 +117,8 @@ $ python inference.py --base_path './data/' \
 - `max_length` : Max Length (Default: 128) for HuggingFace Tokenizer
 - `device`: GPU를 통한 학습이 가능하다면, `cuda`, `mps`(M1) 로 설정할 수 있다.
   - 디바이스의 GPU를 믿고 있었는데, 본의 아니게 배신 당하게 된다면, 자동적으로  `cpu` 로 설정될 것이다.
+
+
 
 #### Jupyter Notebook Version: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1mB05pvu7d83KQX6dyYlj4jxdeUSEt7pJ?usp=sharing) 
 
