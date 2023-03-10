@@ -171,5 +171,27 @@ def inference(model_paths, dataloader, device):
     return final_preds
   
   
+################# COLUMN WISE Predict #####################  
+def column_wise_predict(f1_preds= f1_preds, ss = ss, column = 'type', inverse_encode = inverse_encode, threshold = .5):
+    # ss = submission file
+    print("column_name = 'time: ", column)
+ 
+    if column == 'sure':
+        class_index = f1_preds[column] > threshold
+    else:
+        class_index = np.argmax(f1_preds[column], axis = 1)
+        print("Shape of preds: ", class_index.shape)
+
+    print()
+    print(ss.shape)
+    ss[column] = class_index
+    print(ss[column].value_counts())
+    print()
+    ss[column] = ss[column].apply(lambda x: inverse_encode[column][x])
+    print(ss.shape)
+    print(ss[column].value_counts())
+    print()
+  
+  
   
   
