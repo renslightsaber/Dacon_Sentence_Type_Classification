@@ -74,6 +74,7 @@ def define():
     p.add_argument('--model_type', type = int, default = 1, help="ModelV")
     
     p.add_argument('--n_folds', type = int, default = 5, help="Folds")
+    p.add_argument('--n_epochs', type = int, default = 5, help="Epochs of trained")
     
     p.add_argument('--seed', type = int, default = 2022, help="Seed")
     p.add_argument('--train_bs', type = int, default = 16, help="Batch Size")
