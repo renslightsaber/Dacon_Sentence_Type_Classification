@@ -1,6 +1,6 @@
 
 # [Dacon 문장 유형 분류 AI 경진대회](https://dacon.io/competitions/official/236037/overview/description)
-    
+    ## 아직 공사 중
 ## Competition Info
  - Period: 2022.12.12 - 2022.12.23
  - Joined as: Team 
@@ -47,7 +47,7 @@ $ pip install -qqq --no-cache-dir transformers sentencepiece
 ```
 
 --------------------
-## 
+## 아직 공사 중
 ## How to train or inference in CLI? [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1EPaUyBIP4VER23AKPoLBPjW-Gdn8Bv6b?usp=share_link)
 
 ### Train 
