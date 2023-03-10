@@ -60,6 +60,9 @@ def define():
     p.add_argument('--model_save', type = str, default = "./models/", help="Data Folder Path")
     p.add_argument('--sub_path', type = str, default = "./submission/", help="Data Folder Path")
     
+    p.add_argument('--clean_text', type = bool, default = False, help="Mecab Tokenized -> " ".join")
+    p.add_argument('--test_and_ss', type = bool, default = True, help="test.csv, sample_submission.csv")
+    
     p.add_argument('--model', type = str, default = "monologg/kobigbird-bert-base", help="HuggingFace Pretrained Model")
     p.add_argument('--model_type', type = int, default = 1, help="ModelV")
     
@@ -88,7 +91,7 @@ def define():
 def main(config):
     
     ## Data
-    train, test, ss = dacon_competition_data(base_path = base_path, clean_text = False, test_and_ss = True)
+    train, test, ss = dacon_competition_data(base_path = base_path, clean_text = config.clean_text, test_and_ss = config.test_and_ss)
     
     ## Set Seed
     set_seed(config.seed)
