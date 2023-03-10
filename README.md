@@ -100,6 +100,7 @@ $ python inference.py --base_path './data/' \
                       --model "monologg/kobigbird-bert-base" \
                       --model_type 1 \
                       --n_folds 5 \
+                      --n_epochs 5 \
                       --device 'cuda' \
                       --train_bs 32 
 
@@ -112,6 +113,7 @@ $ python inference.py --base_path './data/' \
 - `model`: Huggingface의 Pratrained Model (Default: `"monologg/kobigbird-bert-base"`)
 - `model_type`: [`model.py`](https://github.com/renslightsaber/Dacon_Sentence_Type_Classification/blob/main/model.py)의 Fine-tuning Model (Default: 1)
 - `n_folds`  : `train.py`에서 진행항 KFold 수
+- `n_epochs` : train했을 때의 Epoch 수 (submission 파일명에 사용)  
 - `seed` : Random Seed (Default: 2022)
 - `train_bs` : Batch Size (Default: 16) 
 - `max_length` : Max Length (Default: 128) for HuggingFace Tokenizer
