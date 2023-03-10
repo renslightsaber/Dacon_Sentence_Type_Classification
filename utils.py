@@ -44,29 +44,30 @@ def make_class_weights(df, column, device):
 ######### Data #############
 def dacon_competition_data( base_path = './data/', clean_text = False, test_and_ss = False):
     
+    train = pd.read_csv(base_path + 'train.csv')
+    test = pd.read_csv(base_path + 'test.csv')
+    ss = pd.read_csv(base_path + 'sample_submission.csv')
+    
     if clean_text:
-        train = pd.read_csv(base_path + 'train.csv')
         mecab = Mecab() 
         train['new_sentence'] = train["문장"].apply(lambda x: " ".join(mecab.morphs(x)))
-        print(train.head())
+        test['new_sentence'] = test["문장"].apply(lambda x: " ".join(mecab.morphs(x)))
+        print("Text Cleaned")
     else:
-        train = pd.read_csv(base_path + 'train.csv')
         # Column Rename
         train.rename(columns={'문장':'new_sentence'}, inplace = True)
-        print(train.head())
-
-    print("Data Shape: ", train.shape)
-
-    # print("Nunique of Target Categories: ", train.iloc[:, -1].nunique())
-    # print("Values of Target Categories: ", train.iloc[:, -1].unique())
-
-    if test_and_ss:
-        test = pd.read_csv(base_path + 'test.csv')
-        # Column Rename
         test.rename(columns={'문장':'new_sentence'}, inplace = True)
-        ss = pd.read_csv(base_path + 'sample_submission.csv')
+        print("Column Renamed")
+
+    print("Train Data Shape: ", train.shape)
+    print("Test Data Shape: ", test.shape)
+    
+    if test_and_ss:
+        print(train.head())
+        print(trdy.head())
         return train, test, ss
     else:
+        print(train.head())
         return train  
       
 ########## make_ plot ###########      
