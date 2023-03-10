@@ -124,7 +124,9 @@ def main(config):
     
     ## Inference
     f1_preds = inference(model_paths_f1, 
-                         test_loader, 
+                         config.model_type, 
+                         config.model, 
+                         test_loader,
                          device)
     print("Inference Completed")
     
