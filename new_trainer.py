@@ -25,6 +25,13 @@ from tqdm.auto import tqdm, trange
 import time
 from time import sleep
 
+# For colored terminal text
+from colorama import Fore, Back, Style
+b_ = Fore.BLUE
+y_ = Fore.YELLOW
+sr_ = Style.RESET_ALL
+
+
 ########### Train One Epoch() #####################
 def train_one_epoch(model, dataloader, loss_fn, optimizer, device, epoch, n_classes, scheduler = None, grad_clipping = False):
 
