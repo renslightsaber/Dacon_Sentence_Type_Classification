@@ -197,10 +197,10 @@ def main(config):
             # print("ModelV4")
 
         # Loss Function
-        loss_fn = {'type': nn.NLLLoss().to(config['device']),
-                    'pn' : nn.NLLLoss().to(config['device']),
-                    'time': nn.NLLLoss().to(config['device']),
-                    'sure': nn.BCELoss().to(config['device'])}
+        loss_fn = {'type': nn.NLLLoss().to(device),
+                    'pn' : nn.NLLLoss().to(device),
+                    'time': nn.NLLLoss().to(device),
+                    'sure': nn.BCELoss().to(device)}
         print("Loss Function Defined")
 
         # Define Opimizer and Scheduler
@@ -241,6 +241,8 @@ def main(config):
 
     print(best_scores)
     print("Train Completed")
+    
+    
 
 if __name__ == '__main__':
     config = define()
