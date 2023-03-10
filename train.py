@@ -192,7 +192,7 @@ def main(config):
         scheduler = CosineWarmupScheduler(optimizer=optimizer, warmup=100, max_iters=2000)
         print("Scheduler Defined")
         
-         print("자세히 알고 싶으면 코드를 봅시다.")
+        print("자세히 알고 싶으면 코드를 봅시다.")
         ## Start Training
         model, best_score = run_train(model, config.model_type, config.model_save, train_loader, valid_loader, loss_fn, optimizer, device, n_classes, fold, scheduler, config.grad_clipping, config.n_epochs)
 
