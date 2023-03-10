@@ -120,7 +120,8 @@ def train_one_epoch(model, dataloader, loss_fn, optimizer, device, epoch, n_clas
         acc_sure = acc_sure.detach().cpu().item()
         f1_sure = metric_bi_f1(y_preds['sure'], t_sure )
         f1_sure = f1_sure.detach().cpu().item()
-
+        
+        bar.update()
         bar.set_postfix(Epoch = epoch, 
                         Train_loss = train_epoch_loss,
                         LR = optimizer.param_groups[0]['lr'])
@@ -258,7 +259,8 @@ def valid_one_epoch(model, dataloader, loss_fn, optimizer, device, epoch, n_clas
             acc_sure = acc_sure.detach().cpu().item()
             f1_sure = metric_bi_f1(y_preds['sure'], t_sure )
             f1_sure = f1_sure.detach().cpu().item()
-
+            
+            bar.update()
             bar.set_postfix(Epoch = epoch, 
                             Valid_loss = valid_epoch_loss,
                             LR = optimizer.param_groups[0]['lr'],
@@ -346,9 +348,7 @@ def run_train(model, model_type, model_save, train_loader, valid_loader, loss_fn
     else:
         model_type_s = "ModelV4"
     
-    pranges = range(1, n_epochs +1)
-    pbar = tqdm(pranges, total = len(pranges), desc = "Epoch: Train & Valid")
-    for epoch in pbar:
+    for epoch in range(1, n_epochs + 1):
         gc.collect()
 
         train_epoch_loss, train_acc_metric, train_f1_metric = train_one_epoch(model, train_loader, loss_fn, optimizer, device, epoch, n_classes, scheduler, grad_clipping)
