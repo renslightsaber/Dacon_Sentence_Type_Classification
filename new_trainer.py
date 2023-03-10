@@ -330,13 +330,13 @@ def run_train(model, model_type, model_save, train_loader, valid_loader, loss_fn
 
 
     # Define Model because of KFold
-    if config['model_type'] == 1:
+    if model_type == 1:
         model_type_s = "ModelV1"
 
-    elif config['model_type'] == 2:
+    elif model_type == 2:
         model_type_s = "ModelV2"
 
-    elif config['model_type'] == 3:
+    elif model_type == 3:
         model_type_s = "ModelV3"
 
     else:
