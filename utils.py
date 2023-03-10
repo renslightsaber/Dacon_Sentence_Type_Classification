@@ -27,7 +27,7 @@ def set_seed(seed=42):
     
     
 ############# make_class_weights ##############   
-def make_class_weights(df, column = 'type', device = config['device'] ):
+def make_class_weights(df, column, device):
     # class imbalance 해결
     # Target의 데이터 수를 class number로 오름차순 정렬
     class_counts = df[column].value_counts()
