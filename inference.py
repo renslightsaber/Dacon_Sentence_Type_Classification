@@ -178,17 +178,17 @@ def main(config):
     
     # 극성 라벨 디코딩
     print("극성")
-    column_wise_predict(f1_preds= f1_preds, ss = ss, column = 'pn',)
+    column_wise_predict(f1_preds= f1_preds, ss = ss, column = 'pn', inverse_encode = inverse_encode, threshold = .5)
     print(ss.head(3))
     
     # 시제 라벨 디코딩
     print("시제")
-    column_wise_predict(f1_preds= f1_preds, ss = ss, column = 'time')
+    column_wise_predict(f1_preds= f1_preds, ss = ss, column = 'time', inverse_encode = inverse_encode, threshold = .5)
     print(ss.head(3))
     
     # 확실성 라벨 디코딩
     print("확실성")
-    column_wise_predict(f1_preds= f1_preds, ss = ss, column = 'sure')
+    column_wise_predict(f1_preds= f1_preds, ss = ss, column = 'sure', inverse_encode = inverse_encode, threshold = .5)
     print(ss.head(3))
     
     # SUM
