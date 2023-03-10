@@ -16,7 +16,7 @@ from torch.optim import lr_scheduler
 from torch.utils.data import Dataset, DataLoader
 
 from dataloader import *
-
+from model import *
 
 ######## test_loader ##############
 def make_testloader(test, 
