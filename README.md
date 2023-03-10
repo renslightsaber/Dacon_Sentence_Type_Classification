@@ -1,2 +1,83 @@
-# Dacon_Sentence_Type_Classification
-[Dacon] 문장 유형 분류 AI 경진대회
+
+# [Dacon 문장 유형 분류 AI 경진대회](https://dacon.io/competitions/official/236037/overview/description)
+    
+## Competition Info
+ - Period: 2022.12.12 - 2022.12.23
+ - Joined as: Team 
+ - TEAM_NAME: '활기력'
+ - TASK: `Text Classification`
+ - Evaluation Metric: `Weighted F1 Score`
+ - Environment: Colab 
+ 
+### Result
+ - PUBLIC  : 0.75495  |  16th / 335 
+ - PRIVATE : 0.75144  |  22nd / 333 (Top 7%)  
+-----------------
+ 
+ 
+## install
+#### [Mecab](https://konlpy.org/ko/v0.4.0/install/)
+: Mecab tokenizer를 사용할 예정!
+```python
+
+$ pip install konlpy
+$ curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh | bash -x
+
+```
+
+#### [torchmetrics](https://torchmetrics.readthedocs.io/en/stable/)
+```python
+$ pip install -qqq torchmetrics
+```
+
+#### [colorama](https://github.com/tartley/colorama)
+```python
+$ pip install -qqq colorama
+```
+
+#### [iterative-stratification](https://github.com/trent-b/iterative-stratification)
+`MultilabelStratifiedKFold`가 필요하기 때문에 설치
+```python
+$ pip install -qqq iterative-stratification
+```
+
+#### HuggingFace Transformer
+```python
+$ pip install -qqq --no-cache-dir transformers sentencepiece
+```
+
+--------------------
+## 
+## How to train or inference in CLI? [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1EPaUyBIP4VER23AKPoLBPjW-Gdn8Bv6b?usp=share_link)
+
+### Train 
+```python
+$ python train.py --model "monologg/kobigbird-bert-base" --model_type 1 --n_folds 3 --n_epochs 3 --device 'cuda' --train_bs 32
+```
+
+- `bs` : Batch Size (Default: 32) 
+- `grad_clipping`: [Gradient Clipping](https://neptune.ai/blog/understanding-gradient-clipping-and-how-it-can-fix-exploding-gradients-problem)
+
+- `ratio` : 데이터를 Split하여 `train`(학습) 과 `valid`(성능 평가)를 만드는 비율을 의미. 정확히는 `train`의 Size를 결정한다.
+- `device`: GPU를 통한 학습이 가능하다면, `cuda`, `mps`(M1) 로 설정할 수 있다. 
+  - 디바이스의 GPU를 믿고 있었는데, 본의 아니게 배신 당하게 된다면, 자동적으로  `cpu` 로 설정될 것이다. 
+- `dropout` : `nn.Dropout()`에 들어가는 Probability (Default: 0.1)
+- `n_epochs` : Epoch
+
+### Inference 
+```python
+$ python inference.py --model "monologg/kobigbird-bert-base" --model_type 1 --n_folds 3 --device 'cuda' --train_bs 32 
+```
+
+- `bs` : Batch Size (Default: 32) 
+
+- `ratio` : 데이터를 Split하여 `train`(학습) 과 `valid`(성능 평가)를 만드는 비율을 의미. 정확히는 `train`의 Size를 결정한다.
+- `device`: GPU를 통한 학습이 가능하다면, `cuda`, `mps`(M1) 로 설정할 수 있다. 
+  - 디바이스의 GPU를 믿고 있었는데, 본의 아니게 배신 당하게 된다면, 자동적으로  `cpu` 로 설정될 것이다. 
+- `dropout` : `nn.Dropout()`에 들어가는 Probability (Default: 0.1)
+- `n_epochs` : Epoch
+
+#### Jupyter Notebook Version: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1we2566FdCYWThICnoIV3lsSD78G09nli?usp=share_link) 
+
+
+
