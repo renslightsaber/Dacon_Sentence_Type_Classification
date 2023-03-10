@@ -10,8 +10,6 @@ import matplotlib.pyplot as plt
 
 from konlpy.tag import Mecab
 
-
-
 ############# seed #################
 def set_seed(seed=42):
     '''Sets the seed of the entire notebook so results are the same every time we run.
