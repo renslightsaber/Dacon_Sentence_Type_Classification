@@ -2,7 +2,6 @@ import re
 import os
 import gc
 import random
-import time
 
 import copy
 from copy import deepcopy
@@ -23,7 +22,8 @@ from torchmetrics.classification import BinaryAccuracy
 # About tqdm: https://github.com/tqdm/tqdm/#ipython-jupyter-integration
 from tqdm.auto import tqdm, trange
 
-
+import time
+from time import sleep
 
 ########### Train One Epoch() #####################
 def train_one_epoch(model, dataloader, loss_fn, optimizer, device, epoch, n_classes, scheduler = None, grad_clipping = False):
