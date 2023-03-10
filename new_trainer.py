@@ -347,7 +347,7 @@ def run_train(model, model_type, model_save, train_loader, valid_loader, loss_fn
         model_type_s = "ModelV4"
 
 
-    for epoch in range(1, n_epochs +1):
+    for epoch in trange(1, n_epochs +1):
         gc.collect()
 
         train_epoch_loss, train_acc_metric, train_f1_metric = train_one_epoch(model, train_loader, loss_fn, optimizer, device, epoch, n_classes, scheduler, grad_clipping)
