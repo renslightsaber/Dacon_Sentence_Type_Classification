@@ -91,7 +91,9 @@ def define():
 def main(config):
     
     ## Data
-    train, test, ss = dacon_competition_data(base_path = base_path, clean_text = config.clean_text, test_and_ss = config.test_and_ss)
+    train, test, ss = dacon_competition_data(base_path = config.base_path, 
+                                             clean_text = config.clean_text, 
+                                             test_and_ss = config.test_and_ss)
     
     ## Set Seed
     set_seed(config.seed)
@@ -128,7 +130,9 @@ def main(config):
     print("Target Columns: ", target_cols)
     
     ### K Fold: MultilabelStratifiedKFold
-    skf = MultilabelStratifiedKFold(n_splits = config.n_folds, shuffle = True, random_state = config.seed)
+    skf = MultilabelStratifiedKFold(n_splits = config.n_folds, 
+                                    shuffle = True, 
+                                    random_state = config.seed)
 
     for fold, (_, val_index) in enumerate(skf.split(X=train, y=train[config['target_cols']])):
         train.loc[val_index, 'kfold'] = int(fold)
@@ -163,7 +167,12 @@ def main(config):
         print(f"{y_}==== Fold: {fold} ====={sr_}")
 
         # DataLoaders 
-        train_loader, valid_loader = prepare_loader(train, fold, tokenizer, config.max_length, config.train_bs, DataCollatorWithPadding(tokenizer=tokenizer))
+        train_loader, valid_loader = prepare_loader(train, 
+                                                    fold, 
+                                                    tokenizer, 
+                                                    config.max_length, 
+                                                    config.train_bs, 
+                                                    DataCollatorWithPadding(tokenizer=tokenizer))
 
         ## Define Model because of KFold
         if config.model_type == 1:
@@ -199,7 +208,19 @@ def main(config):
         
         print("자세히 알고 싶으면 코드를 봅시다.")
         ## Start Training
-        model, best_score = run_train(model, config.model_type, config.model_save, train_loader, valid_loader, loss_fn, optimizer, device, n_classes, fold, scheduler, config.grad_clipping, config.n_epochs)
+        model, best_score = run_train(model, 
+                                      config.model_type, 
+                                      config.model_save, 
+                                      train_loader, 
+                                      valid_loader, 
+                                      loss_fn, 
+                                      optimizer, 
+                                      device, 
+                                      n_classes, 
+                                      fold, 
+                                      scheduler, 
+                                      config.grad_clipping, 
+                                      config.n_epochs)
 
         ## Best F1_Score per Fold 줍줍
         if type(best_score) == torch.Tensor:
