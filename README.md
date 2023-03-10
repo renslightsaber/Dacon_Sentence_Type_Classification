@@ -1,6 +1,6 @@
 
 # [Dacon 문장 유형 분류 AI 경진대회](https://dacon.io/competitions/official/236037/overview/description)
-    ## 아직 공사 중
+
 ## Competition Info
  - Period: 2022.12.12 - 2022.12.23
  - Joined as: Team 
@@ -52,32 +52,70 @@ $ pip install -qqq --no-cache-dir transformers sentencepiece
 
 ### Train 
 ```python
-$ python train.py --model "monologg/kobigbird-bert-base" --model_type 1 --n_folds 3 --n_epochs 3 --device 'cuda' --train_bs 32
+
+$ python train.py --base_path './data/' \
+                  --model_save '/content/drive/MyDrive/ ... /Dacon Sentence Classification/' \
+                  --sub_path '/content/drive/MyDrive/ ... /Dacon Sentence Classification/' \
+                  --model "monologg/kobigbird-bert-base" \
+                  --model_type 1 \
+                  --n_folds 5 \
+                  --n_epochs 5 \
+                  --device 'cuda' \
+                  --train_bs 32 
+
 ```
-
-- `bs` : Batch Size (Default: 32) 
+- `base_path` : Data가 저장된 경로 (Default: `./data/`)
+- `sub_path`  : `submission.csv` 제출하는 경로 
+- `model_save`: 학습된 모델이 저장되는 경로
+- `clean_text`: `mecab` tokenizer로 데이터를 tokenize 시켰다가 다시 `" ".join`으로 복원시킬 것에 대한 여부
+- `test_and_ss`: `test.csv`, `sample_submission.csv`파일을 사용 여부
+- `model`: Huggingface의 Pratrained Model (Default: `"monologg/kobigbird-bert-base"`)
+- `model_type`: [`model.py`](https://github.com/renslightsaber/Dacon_Sentence_Type_Classification/blob/main/model.py)의 Fine-tuning Model (Default: 1) 
+- `n_folds`  : Fold 수 
+- `n_epochs` : Epoch
+- `seed` : Random Seed (Default: 2022) 
+- `train_bs` : Batch Size (Default: 16) 
+- `max_length` : Max Length (Default: 128) for HuggingFace Tokenizer
 - `grad_clipping`: [Gradient Clipping](https://neptune.ai/blog/understanding-gradient-clipping-and-how-it-can-fix-exploding-gradients-problem)
-
 - `ratio` : 데이터를 Split하여 `train`(학습) 과 `valid`(성능 평가)를 만드는 비율을 의미. 정확히는 `train`의 Size를 결정한다.
 - `device`: GPU를 통한 학습이 가능하다면, `cuda`, `mps`(M1) 로 설정할 수 있다. 
   - 디바이스의 GPU를 믿고 있었는데, 본의 아니게 배신 당하게 된다면, 자동적으로  `cpu` 로 설정될 것이다. 
-- `dropout` : `nn.Dropout()`에 들어가는 Probability (Default: 0.1)
-- `n_epochs` : Epoch
+- `learning_rate`, `weight_decay`, `min_lr`, `T_max` 등은 생략 
+
+- [`train.py`](https://github.com/renslightsaber/Dacon_Sentence_Type_Classification/blob/main/train.py) 참고!
+
+#### 주의
+ - CLI 환경에서 train 시킬 때, `tqdm`의 Progress Bar가 엄청 많이 생성된다. 아직 원인과 해결을 못 찾은 상태이다.
+ - Colab과 Jupyter Notebook에서는 정상적으로 Progress Bar가 나타난다.
 
 ### Inference 
 ```python
-$ python inference.py --model "monologg/kobigbird-bert-base" --model_type 1 --n_folds 3 --device 'cuda' --train_bs 32 
+
+$ python inference.py --base_path './data/' \
+                      --model_save '/content/drive/MyDrive/ .. /Dacon Sentence Classification/' \
+                      --sub_path '/content/drive/MyDrive/ ... /Dacon Sentence Classification/' \
+                      --model "monologg/kobigbird-bert-base" \
+                      --model_type 1 \
+                      --n_folds 5 \
+                      --device 'cuda' \
+                      --train_bs 32 
+
 ```
-
-- `bs` : Batch Size (Default: 32) 
-
-- `ratio` : 데이터를 Split하여 `train`(학습) 과 `valid`(성능 평가)를 만드는 비율을 의미. 정확히는 `train`의 Size를 결정한다.
+- `base_path` : Data가 저장된 경로 (Default: `./data/`)
+- `sub_path`  : `submission.csv` 제출하는 경로 
+- `model_save`: 학습된 모델이 저장되는 경로
+- `clean_text`: `mecab` tokenizer로 데이터를 tokenize 시켰다가 다시 `" ".join`으로 복원시킬 것에 대한 여부
+- `test_and_ss`: `test.csv`, `sample_submission.csv`파일을 사용 여부
+- `model`: Huggingface의 Pratrained Model (Default: `"monologg/kobigbird-bert-base"`)
+- `model_type`: [`model.py`](https://github.com/renslightsaber/Dacon_Sentence_Type_Classification/blob/main/model.py)의 Fine-tuning Model (Default: 1) 
+- `n_folds`  : `train.py`에서 진행항 KFold 수 
+- `seed` : Random Seed (Default: 2022) 
+- `train_bs` : Batch Size (Default: 16) 
+- `max_length` : Max Length (Default: 128) for HuggingFace Tokenizer
 - `device`: GPU를 통한 학습이 가능하다면, `cuda`, `mps`(M1) 로 설정할 수 있다. 
   - 디바이스의 GPU를 믿고 있었는데, 본의 아니게 배신 당하게 된다면, 자동적으로  `cpu` 로 설정될 것이다. 
-- `dropout` : `nn.Dropout()`에 들어가는 Probability (Default: 0.1)
-- `n_epochs` : Epoch
 
-#### Jupyter Notebook Version: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1we2566FdCYWThICnoIV3lsSD78G09nli?usp=share_link) 
+#### Jupyter Notebook Version: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1mB05pvu7d83KQX6dyYlj4jxdeUSEt7pJ?usp=sharing) 
 
 
 
