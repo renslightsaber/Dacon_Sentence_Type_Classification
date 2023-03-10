@@ -53,7 +53,7 @@ def train_one_epoch(model, dataloader, loss_fn, optimizer, device, epoch, n_clas
 
     model.train()
     for step, data in bar:
-
+        sleep(0.1)
         ids = data['input_ids'].to(device, dtype = torch.long)
         masks = data['attention_mask'].to(device, dtype = torch.long)
         # targets
@@ -203,7 +203,7 @@ def valid_one_epoch(model, dataloader, loss_fn, optimizer, device, epoch, n_clas
     model.eval()
     with torch.no_grad():
         for step, data in bar:
-
+            sleep(0.1)
             ids = data['input_ids'].to(device, dtype = torch.long)
             masks = data['attention_mask'].to(device, dtype = torch.long)
 
@@ -346,7 +346,8 @@ def run_train(model, model_type, model_save, train_loader, valid_loader, loss_fn
     else:
         model_type_s = "ModelV4"
     
-    for epoch in range(1, n_epochs + 1):
+    for epoch in trange(1, n_epochs + 1):
+        sleep(0.1)
         gc.collect()
 
         train_epoch_loss, train_acc_metric, train_f1_metric = train_one_epoch(model, train_loader, loss_fn, optimizer, device, epoch, n_classes, scheduler, grad_clipping)
