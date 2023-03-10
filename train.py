@@ -1,7 +1,6 @@
 import re
 import os
 import gc
-import time
 import random
 import string
 
@@ -34,6 +33,9 @@ from transformers import AutoTokenizer, AutoModel, AdamW, AutoConfig, DataCollat
 
 # Utils
 from tqdm.auto import tqdm, trange
+
+import time
+from time import sleep
 
 # For colored terminal text
 from colorama import Fore, Back, Style
