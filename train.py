@@ -179,19 +179,19 @@ def main(config):
 
         ## Define Model because of KFold
         if config.model_type == 1:
-            model = ModelV1(config['model']).to(device)
+            model = ModelV1(config.model).to(device)
             print("ModelV1")
 
         elif config.model_type == 2:
-            model = ModelV2(config['model']).to(device)
+            model = ModelV2(config.model).to(device)
             print("ModelV2")
 
         elif config.model_type == 3:
-            model = ModelV3(config['model']).to(device)
+            model = ModelV3(config.model).to(device)
             print("ModelV3")
 
         else:
-            model = ModelV4(config['model']).to(device)
+            model = ModelV4(config.model).to(device)
             print("ModelV4")
 
         # Loss Function
