@@ -64,7 +64,7 @@ def dacon_competition_data( base_path = './data/', clean_text = False, test_and_
     
     if test_and_ss:
         print(train.head())
-        print(trdy.head())
+        print(test.head())
         return train, test, ss
     else:
         print(train.head())
