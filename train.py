@@ -57,8 +57,10 @@ def define():
     p = argparse.ArgumentParser()
 
     p.add_argument('--base_path', type = str, default = "./data/", help="Data Folder Path")
-    p.add_argument('--model_save', type = str, default = "./models/", help="Data Folder Path")
-    p.add_argument('--sub_path', type = str, default = "./submission/", help="Data Folder Path")
+    
+    ## 다른 경로로 하는 것이 맞
+    p.add_argument('--model_save', type = str, default = "./data/", help="Data Folder Path")
+    p.add_argument('--sub_path', type = str, default = "./data/", help="Data Folder Path")
     
     p.add_argument('--clean_text', type = bool, default = False, help="Mecab Tokenized -> " ".join")
     p.add_argument('--test_and_ss', type = bool, default = True, help="test.csv, sample_submission.csv")
@@ -180,19 +182,19 @@ def main(config):
         ## Define Model because of KFold
         if config.model_type == 1:
             model = ModelV1(config.model).to(device)
-            print("ModelV1")
+            # print("ModelV1")
 
         elif config.model_type == 2:
             model = ModelV2(config.model).to(device)
-            print("ModelV2")
+            # print("ModelV2")
 
         elif config.model_type == 3:
             model = ModelV3(config.model).to(device)
-            print("ModelV3")
+            # print("ModelV3")
 
         else:
             model = ModelV4(config.model).to(device)
-            print("ModelV4")
+            # print("ModelV4")
 
         # Loss Function
         loss_fn = {'type': nn.NLLLoss().to(config['device']),
