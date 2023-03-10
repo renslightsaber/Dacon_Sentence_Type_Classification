@@ -109,10 +109,7 @@ def main(config):
         
     else:
         device = torch.device("cpu")
-        
-        
-    
-    
+            
     ## DataLoader
     test_loader = make_testloader(test, 
                                   tokenizer, 
@@ -183,117 +180,6 @@ def main(config):
     print(sub_file_name)
     
     print("Save Submission.csv")
-          
-         
-    ### K Fold: MultilabelStratifiedKFold
-    skf = MultilabelStratifiedKFold(n_splits = config.n_folds, 
-                                    shuffle = True, 
-                                    random_state = config.seed)
-
-    for fold, (_, val_index) in enumerate(skf.split(X=train, y=train[target_cols])):
-        train.loc[val_index, 'kfold'] = int(fold)
-
-    train['kfold'] = train['kfold'].astype('int')
-    ## Drop Unnecessary Cols
-    train.drop(['유형', '극성', '시제', '확실성', 'label'], axis = 1, inplace = True)
-    print(train.shape)
-    print(train.head(3))
-    
-    ## Tokenizer
-    tokenizer = AutoTokenizer.from_pretrained(config.model)
-    print("Tokenizer Downloaded")
-
-    # Device
-    if config.device == "mps":
-        device = torch.device("mps") if torch.backends.mps.is_available() else torch.device("cpu")
-        
-    elif config.device == "cuda":
-        device = torch.device("cuda:0") if torch.cuda.is_available() else torch.device("cpu")
-        
-    else:
-        device = torch.device("cpu")
-
-    print("Device", device)
-    
-    ### folds_run
-    best_scores = []
-    
-    for fold in trange(0, config.n_folds, desc='Fold Loop'):
-    # for fold in trange(0, config['n_folds']):
-
-        print(f"{y_}==== Fold: {fold} ====={sr_}")
-
-        # DataLoaders 
-        train_loader, valid_loader = prepare_loader(train, 
-                                                    fold, 
-                                                    tokenizer, 
-                                                    config.max_length, 
-                                                    config.train_bs, 
-                                                    DataCollatorWithPadding(tokenizer=tokenizer))
-
-        ## Define Model because of KFold
-        if config.model_type == 1:
-            model = ModelV1(config.model).to(device)
-            # print("ModelV1")
-
-        elif config.model_type == 2:
-            model = ModelV2(config.model).to(device)
-            # print("ModelV2")
-
-        elif config.model_type == 3:
-            model = ModelV3(config.model).to(device)
-            # print("ModelV3")
-
-        else:
-            model = ModelV4(config.model).to(device)
-            # print("ModelV4")
-
-        # Loss Function
-        loss_fn = {'type': nn.NLLLoss().to(device),
-                    'pn' : nn.NLLLoss().to(device),
-                    'time': nn.NLLLoss().to(device),
-                    'sure': nn.BCELoss().to(device)}
-        print("Loss Function Defined")
-
-        # Define Opimizer and Scheduler
-        optimizer = AdamW(model.parameters(), lr = config.learning_rate, weight_decay = config.weight_decay)
-        print("Optimizer Defined")
-
-        # scheduler = fetch_scheduler(optimizer)
-        scheduler = CosineWarmupScheduler(optimizer=optimizer, warmup=100, max_iters=2000)
-        print("Scheduler Defined")
-        
-        print("자세히 알고 싶으면 코드를 봅시다.")
-        ## Start Training
-        model, best_score = run_train(model, 
-                                      config.model_type, 
-                                      config.model_save, 
-                                      train_loader, 
-                                      valid_loader, 
-                                      loss_fn, 
-                                      optimizer, 
-                                      device, 
-                                      n_classes, 
-                                      fold, 
-                                      scheduler, 
-                                      config.grad_clipping, 
-                                      config.n_epochs)
-
-        ## Best F1_Score per Fold 줍줍
-        if type(best_score) == torch.Tensor:
-            best_scores.append( best_score.detach().cpu().item() )
-        else:
-            best_scores.append(best_score)
-        
-        ## For Memory
-        del model, train_loader, valid_loader
-
-        torch.cuda.empty_cache()
-        _ = gc.collect()
-
-    print(best_scores)
-    print("Train Completed")
-    
     
 
 if __name__ == '__main__':
