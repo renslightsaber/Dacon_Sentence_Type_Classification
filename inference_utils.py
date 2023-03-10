@@ -138,12 +138,16 @@ def inference_model_define(model_type,
   
   
 ################# Inference ###################
-def inference(model_paths, dataloader, device):
+def inference(model_paths, 
+              model_type, 
+              model_name, 
+              dataloader, 
+              device):
 
     final_type_preds, final_pn_preds, final_time_preds, final_sure_preds = [], [], [], []
     
     for i, path in enumerate(model_paths):
-        model = inference_model_define(model_type = config['model_type'], model_name =config['model'], device = device)
+        model = inference_model_define(model_type, model_name, device)
         model.load_state_dict(torch.load(path))
         
         print(f"Getting predictions for model {i+1}")
