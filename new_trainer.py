@@ -121,7 +121,6 @@ def train_one_epoch(model, dataloader, loss_fn, optimizer, device, epoch, n_clas
         f1_sure = metric_bi_f1(y_preds['sure'], t_sure )
         f1_sure = f1_sure.detach().cpu().item()
         
-        bar.update()
         bar.set_postfix(Epoch = epoch, 
                         Train_loss = train_epoch_loss,
                         LR = optimizer.param_groups[0]['lr'])
@@ -260,7 +259,6 @@ def valid_one_epoch(model, dataloader, loss_fn, optimizer, device, epoch, n_clas
             f1_sure = metric_bi_f1(y_preds['sure'], t_sure )
             f1_sure = f1_sure.detach().cpu().item()
             
-            bar.update()
             bar.set_postfix(Epoch = epoch, 
                             Valid_loss = valid_epoch_loss,
                             LR = optimizer.param_groups[0]['lr'],
