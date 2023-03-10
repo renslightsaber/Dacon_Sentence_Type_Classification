@@ -210,7 +210,7 @@ def main(config):
     ss.head()
     
     ## Submission csv file name and save
-    sub_file_name = config.sub_path + "_".join(config.model.split("/"))+ "_ModelV" + str(config.model_type) + "_N_folds" + str(config.n_folds) + "_N_epochs" + str(config.n_epochs) + "_LR" + str(config.learning_rate) + ".csv"
+    sub_file_name = config.sub_path + "_".join(config.model.split("/"))+ "_ModelV" + str(config.model_type) + "_N_folds" + str(config.n_folds) + "_N_epochs" + str(config.n_epochs) + ".csv"
     print(sub_file_name)
     
     print("Save Submission.csv")
