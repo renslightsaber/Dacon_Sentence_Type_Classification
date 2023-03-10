@@ -5,6 +5,8 @@ import time
 
 import matplotlib.pyplot as plt
 
+from tqdm.auto import tqdm, trange
+
 import numpy as np
 import pandas as pd
 
