@@ -95,6 +95,45 @@ def main(config):
                                              clean_text = config.clean_text, 
                                              test_and_ss = config.test_and_ss)
     
+    ## Target Encoding
+    n_classes = dict()
+    
+    # 유형 라벨 인코딩
+    print("유형")
+    target1_encode = {v: k for k, v in enumerate(train["유형"].unique())}
+    target1_inverse = {v: k for k, v in target1_encode.items()}
+    train['type'] = train["유형"].apply(lambda x: target1_encode[x])
+    n_classes['type'] = len(target1_encode.keys())
+    
+    # 극성 라벨 인코딩
+    print("극성")
+    target2_encode = {v: k for k, v in enumerate(train["극성"].unique())}
+    target2_inverse = {v: k for k, v in target2_encode.items()}
+    train['pn'] = train["극성"].apply(lambda x: target2_encode[x])
+    n_classes['pn'] = len(target2_encode.keys())
+    
+    # 시제 라벨 인코딩
+    print("시제")
+    target3_encode = {v: k for k, v in enumerate(train["시제"].unique())}
+    target3_inverse = {v: k for k, v in target3_encode.items()}
+    train['time'] = train["시제"].apply(lambda x: target3_encode[x])
+    n_classes['time'] = len(target3_encode.keys())
+    
+    # 확실성 라벨 인코딩
+    print("확실성")
+    train['sure'] = train["확실성"].apply(lambda x: 1 if x == '확실' else 0)
+    target4_inverse = {True: '확실', False: '불확실'}
+    n_classes['sure'] = 2
+    
+    
+    ## Target Decoder
+    target4_inverse = {True: '확실', False: '불확실'}
+    inverse_encode = {'type': target1_inverse, 
+                      'pn': target2_inverse, 
+                      'time': target3_inverse, 
+                      'sure': target4_inverse, }
+    print("Targer Decoders")
+    
     
     ## Tokenizer
     tokenizer = AutoTokenizer.from_pretrained(config.model)
@@ -129,16 +168,6 @@ def main(config):
                          test_loader,
                          device)
     print("Inference Completed")
-    
-    
-    ## Target Decoder
-    target4_inverse = {True: '확실', False: '불확실'}
-    inverse_encode = {'type': target1_inverse, 
-                      'pn': target2_inverse, 
-                      'time': target3_inverse, 
-                      'sure': target4_inverse, }
-    print("Targer Decoders")
-    
     
     # 유형 라벨 디코딩
     print("유형")
