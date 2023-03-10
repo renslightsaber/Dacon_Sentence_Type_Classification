@@ -17,6 +17,8 @@ import torch.nn as nn
 # from torch.utils.data import Dataset, DataLoader
 
 import torchmetrics
+from torchmetrics.classification import BinaryF1Score
+from torchmetrics.classification import BinaryAccuracy
 
 # About tqdm: https://github.com/tqdm/tqdm/#ipython-jupyter-integration
 from tqdm.auto import tqdm, trange
