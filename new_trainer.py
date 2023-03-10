@@ -25,6 +25,8 @@ from tqdm.auto import tqdm, trange
 import time
 from time import sleep
 
+from utils import *
+
 # For colored terminal text
 from colorama import Fore, Back, Style
 b_ = Fore.BLUE
