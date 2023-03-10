@@ -171,7 +171,9 @@ def main(config):
     
     # 유형 라벨 디코딩
     print("유형")
-    column_wise_predict(f1_preds= f1_preds, ss = ss, column = 'type', )
+    column_wise_predict(f1_preds= f1_preds, ss = ss, column = 'type', inverse_encode = inverse_encode, threshold = .5)
+
+                        
     print(ss.head(3))
     
     # 극성 라벨 디코딩
