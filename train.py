@@ -173,6 +173,7 @@ def main(config):
     
     for fold in trange(0, config.n_folds, desc='Fold Loop'):
     # for fold in trange(0, config['n_folds']):
+        sleep(0.1)
         print(f"{y_}==== Fold: {fold} ====={sr_}")
 
         # DataLoaders 
