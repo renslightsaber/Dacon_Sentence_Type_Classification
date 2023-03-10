@@ -23,21 +23,18 @@ def train_one_epoch(model, dataloader, loss_fn, optimizer, device, epoch, n_clas
 
 
     ################ torchmetrics: initialize metric #########################
-    metric_acc_type = torchmetrics.Accuracy(task='multiclass', average = 'weighted', num_classes=n_classes['type']).to(config['device'])
-    metric_f1_type = torchmetrics.F1Score(task="multiclass", average = 'weighted', num_classes=n_classes['type']).to(config['device'])
+    
+    metric_acc_type = torchmetrics.Accuracy(task='multiclass', average = 'weighted', num_classes=n_classes['type']).to(device)
+    metric_f1_type = torchmetrics.F1Score(task="multiclass", average = 'weighted', num_classes=n_classes['type']).to(device)
 
-    metric_acc_pn = torchmetrics.Accuracy(task='multiclass', average = 'weighted', num_classes=n_classes['pn']).to(config['device'])
-    metric_f1_pn = torchmetrics.F1Score(task="multiclass", average = 'weighted',num_classes=n_classes['pn']).to(config['device'])
+    metric_acc_pn = torchmetrics.Accuracy(task='multiclass', average = 'weighted', num_classes=n_classes['pn']).to(device)
+    metric_f1_pn = torchmetrics.F1Score(task="multiclass", average = 'weighted',num_classes=n_classes['pn']).to(device)
 
-    metric_acc_time = torchmetrics.Accuracy(task='multiclass', average = 'weighted', num_classes=n_classes['time']).to(config['device'])
-    metric_f1_time = torchmetrics.F1Score(task="multiclass", average = 'weighted',num_classes=n_classes['time']).to(config['device'])
+    metric_acc_time = torchmetrics.Accuracy(task='multiclass', average = 'weighted', num_classes=n_classes['time']).to(device)
+    metric_f1_time = torchmetrics.F1Score(task="multiclass", average = 'weighted',num_classes=n_classes['time']).to(device)
 
-    # metric_bi_acc = torchmetrics.Accuracy(task='multiclass', average = 'weighted', num_classes = 2).to(config['device'])
-    # metric_bi_f1 = torchmetrics.F1Score(task="multiclass", average = 'weighted',num_classes = 2).to(config['device'])
-
-    ## 기존 ##
-    metric_bi_acc = BinaryAccuracy().to(config['device'])
-    metric_bi_f1 = BinaryF1Score().to(config['device'])
+    metric_bi_acc = BinaryAccuracy().to(device)
+    metric_bi_f1 = BinaryF1Score().to(device)
     
     ############################################################################
 
@@ -141,18 +138,10 @@ def train_one_epoch(model, dataloader, loss_fn, optimizer, device, epoch, n_clas
     print(f"ACCUR | {acc_type:.3f} | {acc_pn:.3f} | {acc_time:.3f} | {acc_sure:.3f} |")
     print(f"F1_SC | {f1_type:.3f} | {f1_pn:.3f} | {f1_time:.3f} | {f1_sure:.3f} |")
 
-    # 기존
-    # print("Train's 유형(Type) Accuracy: %.2f | F1_SCORE %.3f" % (acc_type, f1_type))
-    # print("Train's 극성(PN) Accuracy: %.2f | F1_SCORE %.3f" % (acc_pn, f1_pn))
-    # print("Train's 시간(Time) Accuracy: %.2f | F1_SCORE %.3f" % (acc_time, f1_time))
-    # print("Train's 확실성(Sure) Accuracy: %.2f | F1_SCORE %.3f" % (acc_sure, f1_sure))
-    print()
-
     acc_metric = {'type': acc_type, 'pn' : acc_pn,'time': acc_time,'sure': acc_sure}
     f1_metric = {'type': f1_type, 'pn' : f1_pn,'time': f1_time,'sure': f1_sure}
 
     del acc_type, acc_pn, acc_time, acc_sure, f1_type, f1_pn, f1_time, f1_sure
-    # del metric_acc_type, metric_acc_pn, metric_acc_time, metric_bi_acc, metric_f1_type, metric_f1_pn, metric_f1_time, metric_bi_f1
 
     # Reseting internal state such that metric ready for new data
     metric_acc_type.reset()
@@ -181,21 +170,18 @@ def valid_one_epoch(model, dataloader, loss_fn, optimizer, device, epoch, n_clas
 
 
     ################ torchmetrics: initialize metric #########################
-    metric_acc_type = torchmetrics.Accuracy(task='multiclass', average = 'weighted', num_classes=n_classes['type']).to(config['device'])
-    metric_f1_type = torchmetrics.F1Score(task="multiclass", average = 'weighted', num_classes=n_classes['type']).to(config['device'])
+    
+    metric_acc_type = torchmetrics.Accuracy(task='multiclass', average = 'weighted', num_classes=n_classes['type']).to(device)
+    metric_f1_type = torchmetrics.F1Score(task="multiclass", average = 'weighted', num_classes=n_classes['type']).to(device)
 
-    metric_acc_pn = torchmetrics.Accuracy(task='multiclass', average = 'weighted', num_classes=n_classes['pn']).to(config['device'])
-    metric_f1_pn = torchmetrics.F1Score(task="multiclass", average = 'weighted',num_classes=n_classes['pn']).to(config['device'])
+    metric_acc_pn = torchmetrics.Accuracy(task='multiclass', average = 'weighted', num_classes=n_classes['pn']).to(device)
+    metric_f1_pn = torchmetrics.F1Score(task="multiclass", average = 'weighted',num_classes=n_classes['pn']).to(device)
 
-    metric_acc_time = torchmetrics.Accuracy(task='multiclass', average = 'weighted', num_classes=n_classes['time']).to(config['device'])
-    metric_f1_time = torchmetrics.F1Score(task="multiclass", average = 'weighted',num_classes=n_classes['time']).to(config['device'])
+    metric_acc_time = torchmetrics.Accuracy(task='multiclass', average = 'weighted', num_classes=n_classes['time']).to(device)
+    metric_f1_time = torchmetrics.F1Score(task="multiclass", average = 'weighted',num_classes=n_classes['time']).to(device)
 
-    # metric_bi_acc = torchmetrics.Accuracy(task='multiclass', average = 'weighted', num_classes = 2).to(config['device'])
-    # metric_bi_f1 = torchmetrics.F1Score(task="multiclass", average = 'weighted',num_classes = 2).to(config['device'])
-
-    ## 기존 ##
-    metric_bi_acc = BinaryAccuracy().to(config['device'])
-    metric_bi_f1 = BinaryF1Score().to(config['device'])
+    metric_bi_acc = BinaryAccuracy().to(device)
+    metric_bi_f1 = BinaryF1Score().to(device)
     
     ############################################################################
     
@@ -295,7 +281,6 @@ def valid_one_epoch(model, dataloader, loss_fn, optimizer, device, epoch, n_clas
     f1_metric = {'type': f1_type, 'pn' : f1_pn,'time': f1_time,'sure': f1_sure}
 
     del acc_type, acc_pn, acc_time, acc_sure, f1_type, f1_pn, f1_time, f1_sure
-    # del metric_acc_type, metric_acc_pn, metric_acc_time, metric_bi_acc, metric_f1_type, metric_f1_pn, metric_f1_time, metric_bi_f1
 
     # Reseting internal state such that metric ready for new data
     metric_acc_type.reset()
