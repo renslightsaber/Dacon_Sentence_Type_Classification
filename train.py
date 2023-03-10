@@ -134,7 +134,7 @@ def main(config):
                                     shuffle = True, 
                                     random_state = config.seed)
 
-    for fold, (_, val_index) in enumerate(skf.split(X=train, y=train[config['target_cols']])):
+    for fold, (_, val_index) in enumerate(skf.split(X=train, y=train[target_cols])):
         train.loc[val_index, 'kfold'] = int(fold)
 
     train['kfold'] = train['kfold'].astype('int')
