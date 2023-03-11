@@ -212,7 +212,7 @@ def main(config):
     ## Submission csv file name and save
     sub_file_name = config.sub_path + "_".join(config.model.split("/"))+ "_ModelV" + str(config.model_type) + "_N_folds" + str(config.n_folds) + "_N_epochs" + str(config.n_epochs) + ".csv"
     print(sub_file_name)
-    
+    ss.to_csv(sub_file_name, index=False) 
     print("Save Submission.csv")
     
 
