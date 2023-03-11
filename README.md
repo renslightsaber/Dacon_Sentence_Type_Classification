@@ -18,7 +18,7 @@
 ## What I learned from this Competition:
  - How to write code and build model for `Multi-Label Classification`.
 
-## Tried for 'Class Imbalance'
+## Tried to solve 'Class Imbalanced' problem.
  There was severe Imbalanced per each label. Therefore, we researched how to solve this and found thses methods.
  
   - Sampler
