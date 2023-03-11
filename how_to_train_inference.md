@@ -1,5 +1,7 @@
 # How to train or inference in CLI? [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1EPaUyBIP4VER23AKPoLBPjW-Gdn8Bv6b?usp=share_link)
 
+#### You can check Jupyter Notebook Version at [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1QchQzwbGpOvXDRMzWXi5k-d_A_h4w-c9?usp=sharing) 
+ 
 
 ## install
 #### [Mecab](https://konlpy.org/ko/v0.4.0/install/)
@@ -103,7 +105,6 @@ $ python inference.py --base_path './data/' \
 
 
 
-#### Jupyter Notebook Version: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1mB05pvu7d83KQX6dyYlj4jxdeUSEt7pJ?usp=sharing) 
 
 
 
