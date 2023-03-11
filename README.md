@@ -3,7 +3,7 @@
 
 ## Competition Info
  - Period: 2022.12.12 - 2022.12.23
- - Joined as: Team 
+ - Joined as: Team with [A.RYANG](https://github.com/nomaday)
  - TEAM_NAME: '활기력'
  - TASK: `Text Classification`
  - Evaluation Metric: `Weighted F1 Score`
