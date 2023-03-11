@@ -78,8 +78,7 @@ $ python train.py --base_path './data/' \
 - `max_length` : Max Length (Default: 128) for HuggingFace Tokenizer
 - `grad_clipping`: [Gradient Clipping](https://neptune.ai/blog/understanding-gradient-clipping-and-how-it-can-fix-exploding-gradients-problem)
 - `ratio` : 데이터를 Split하여 `train`(학습) 과 `valid`(성능 평가)를 만드는 비율을 의미. 정확히는 `train`의 Size 결정
-- `device`: GPU를 통한 학습이 가능하다면, `cuda`, `mps`(M1) 로 설정 가능 
-  - 디바이스의 GPU를 믿고 있었는데, 본의 아니게 배신 당하게 된다면, 자동적으로  `cpu` 로 설정됨 
+- `device`: GPU를 통한 학습이 가능하다면, `cuda` 로 설정할 수 있다.
 - `learning_rate`, `weight_decay`, `min_lr`, `T_max` 등은 생략 
 
 - [`train.py`](https://github.com/renslightsaber/Dacon_Sentence_Type_Classification/blob/main/train.py) 참고!   
@@ -117,8 +116,7 @@ $ python inference.py --base_path './data/' \
 - `seed` : Random Seed (Default: 2022)
 - `train_bs` : Batch Size (Default: 16) 
 - `max_length` : Max Length (Default: 128) for HuggingFace Tokenizer
-- `device`: GPU를 통한 학습이 가능하다면, `cuda`, `mps`(M1) 로 설정할 수 있다.
-  - 디바이스의 GPU를 믿고 있었는데, 본의 아니게 배신 당하게 된다면, 자동적으로  `cpu` 로 설정될 것이다.
+- `device`: GPU를 통한 학습이 가능하다면, `cuda` 로 설정할 수 있다.
 
 
 
