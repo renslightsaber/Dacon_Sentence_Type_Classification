@@ -28,6 +28,7 @@
  However, none of these work better than codes on github. Instead of trying to solve this, We concentrated on build better Fine-tuning Model (`tunib/electra-ko-en-base` or add `nn.BatchNorm2d()` or `nn.LeakyReLU()` Layer) and other methods(such as `clean_text`).
 
 
-### How to train or inference in CLI? [Check Here](https://github.com/renslightsaber/Dacon_Sentence_Type_Classification/blob/main/how_to_train_inference.md)
+## How to train or inference in CLI? 
+[Check Here](https://github.com/renslightsaber/Dacon_Sentence_Type_Classification/blob/main/how_to_train_inference.md)
  
  
