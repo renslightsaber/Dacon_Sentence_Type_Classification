@@ -1,12 +1,12 @@
-
-
 import numpy as np
 import pandas as pd
 
-import torch
+## Pytorch Import
+import torch 
 import torch.nn as nn
-from torch.utils.data import Dataset, DataLoader
 
+from torch.optim import lr_scheduler
+from torch.utils.data import Dataset, DataLoader
 
 
 ############ MyDataset ###############
@@ -93,7 +93,6 @@ def prepare_loader(train,
                             mode = "train")
     
     # Dataset -> DataLoader
-
     train_loader = DataLoader(train_ds,
                               batch_size = bs, 
                               collate_fn=collate_fn, 
