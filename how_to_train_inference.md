@@ -54,7 +54,7 @@ $ python train.py --base_path './data/' \
 - `model_save`: 학습된 모델이 저장되는 경로
 - `clean_text`: `mecab` tokenizer로 데이터를 tokenize 시켰다가 다시 `" ".join`으로 복원시킬 것에 대한 여부
 - `test_and_ss`: `test.csv`, `sample_submission.csv`파일을 사용 여부
-- `model`: Huggingface의 Pratrained Model (Default: `"monologg/kobigbird-bert-base"`)
+- `model`: Huggingface Pratrained Model (Default: `"monologg/kobigbird-bert-base"`)
 - `model_type`: [`model.py`](https://github.com/renslightsaber/Dacon_Sentence_Type_Classification/blob/main/model.py)의 Fine-tuning Model (Default: 1)
 - `n_folds`  : Fold 수
 - `n_epochs` : Epoch
@@ -93,7 +93,7 @@ $ python inference.py --base_path './data/' \
 - `model_save`: 학습된 모델이 저장되는 경로
 - `clean_text`: `mecab` tokenizer로 데이터를 tokenize 시켰다가 다시 `" ".join`으로 복원시킬 것에 대한 여부
 - `test_and_ss`: `test.csv`, `sample_submission.csv`파일을 사용 여부
-- `model`: Huggingface의 Pratrained Model (Default: `"monologg/kobigbird-bert-base"`)
+- `model`: train 했을 때의 Huggingface Pratrained Model (Default: `"monologg/kobigbird-bert-base"`)
 - `model_type`: [`model.py`](https://github.com/renslightsaber/Dacon_Sentence_Type_Classification/blob/main/model.py)의 Fine-tuning Model (Default: 1)
 - `n_folds`  : `train.py`에서 진행항 KFold 수
 - `n_epochs` : train했을 때의 Epoch 수 (submission 파일명에 사용)  
